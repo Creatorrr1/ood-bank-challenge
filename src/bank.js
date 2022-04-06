@@ -1,3 +1,5 @@
+const Print = require("./print")
+
 class Bank {
   constructor() {
     this.transaction = [];
@@ -29,44 +31,11 @@ class Bank {
     };
     this.transaction.push(transactionStatement);
   }
-  
-  transactionToString (transaction) {
-    let s = ""
 
-    s = s + transaction.date
-    // console.log('here:',s,transaction.date)
-    s = s + " || "
-    if ( transaction.type === 'credit' ) {
-        // `${this.transaction.date} || ${this.transaction.amount} ||  || ${this.transaction.balance}`
-       s = s + transaction.amount
-        s = s + " || "
-        // add credit
-        // add empty debit
-    } else {
-        s = s + " || "
-        s = s + transaction.amount
-        // add empty credit
-        // add debit
-    }
-    s = s + " || "
-    s = s + transaction.balance
-    // add balance
-
-    return s
-}
 
   printStatement() {
-    // I want the each transaction returned
-    const statement = [];
-    console.log('Before statement:', statement)
-    // statement.push("date || credit || debit || balance");
-    for (let i = 0; i < this.transaction.length; i++) {
-      statement.push(this.transactionToString(this.transaction[i]));
-    }
-    console.log('After statement:', statement)
-    const reverseStatement = statement.reverse()
-    reverseStatement.unshift("date || credit || debit || balance")
-    return reverseStatement.join('\n')
+    const print = new Print()
+    return print.statement(this.transaction)
   }
 }
 
